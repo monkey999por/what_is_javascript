@@ -1,9 +1,4 @@
-import { testf } from './test.js'
+while(true){
+console.log(12);
 
-testf();
-
-
-
-
-
-
+}

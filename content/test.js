@@ -1,6 +1,6 @@
 
 
 export const testf = () => {
-    console.log('testf');
+    // console.log('testf');
     // alert('hello');
 }
