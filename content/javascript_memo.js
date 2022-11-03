@@ -251,7 +251,7 @@ https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Optiona
 // }
 
 // この辺の組み込みオブジェクトは後で見とく 3章当たり
-// Array,Map,Set,Date,Math,RegExp,Object
+// Array,Map,Set,Date,Math,RegExp,Object, P381から
 
 
 
