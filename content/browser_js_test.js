@@ -1,4 +1,19 @@
 
+// ちょっと特殊 handleEventをもったオブジェクトでイベント設定
+document.addEventListener('DOMContentLoaded', () => {
+    const data = {
+        title: 'title desuyo',
+        desc : 'unko man',
+        handleEvent: function(){
+            console.log(`title : ${this.title}, desc: ${this.desc}`);
+        },
+    }
+
+    // handleEventをもっているオブジェクトの場合、リスナにはそのオブジェクトを指定すればよい
+    document.getElementById('handle_event').addEventListener('click', data, false);
+
+})
+// TODO: thisの扱いについて記載する。
 // event babbling test
 document.addEventListener('DOMContentLoaded', () => {
     const outer = document.getElementById('event_babbling_outer');
@@ -21,6 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
     inner.onclick = (e) => {
         console.log('inner run event');
         eventInfo(e);
+        // cancel event bubbling
+        // e.stopPropagation();
     }
 
     //3.third run
