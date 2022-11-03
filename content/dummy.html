@@ -12,14 +12,28 @@
 </head>
 
 <body>
-   
-    <div id="app">Hellw</div>
-    <input type="text" id="in" >
-    <input type="button" value="button" onclick="inputrun()">
-    <button onclick="inputrun()">RUN</button>
+    <div id="inputs" class="input_zone">
+        <input type="text" id="in">
+        <button id="addbutton">RUN</button>
+    </div>
+    <div>
+        <button id="event_test">event test</button>
+        <button onclick="removeEvent()">remove Event</button>
+    </div>
+    <div id="event_babbling_outer">
+        <div id="event_babbling_inner">
+            <button id="event_babbling_button">event bubbling test</button>
+        </div>
+    </div>
+    <li id="list">
+        <ul>1</ul>
+        <ul>2</ul>
+        <ul>3</ul>
+    </li>
     <div id="main"></div>
-    
+
     <script type="text/javascript" src="./main.js"></script>
+    <script type="text/javascript" src="./browser_js_test.js"></script>
 
 </body>
 

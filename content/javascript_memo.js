@@ -190,6 +190,23 @@ fnLiteral('fnLiteral'); // fnLiteral
 
 // arrow function
 // 他の関数定義との違いとして、thisが固定される（？）
+// 例えばこんな感じの違い
+// 1. 
+// document.addEventListener('DOMContentLoaded', () => {
+//     let input_zone = document.getElementById('inputs');
+//     input_zone.addEventListener('click', function () {
+//         console.log(this); // ★input_zoneが取れる
+//         this.classList.toggle('black');
+//     }, false);
+// }, false);
+
+// 2. 
+// document.addEventListener('DOMContentLoaded', () => {
+//     let input_zone = document.getElementById('inputs');
+//     input_zone.addEventListener('mouseover', () => {
+//         console.log(this); // ★Windowがとれる　windowってなに・・
+//     }, false);
+// }, false);
 const arrowFn = (args) => {
     console.log(args);
 };
