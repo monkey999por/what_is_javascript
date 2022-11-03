@@ -8,11 +8,11 @@
 // ・大文字小文字を区別
 
 // ■ 変数宣言
-// var：変数名重複あり、ブロックスコープを無視
+// var：変数名重複あり、ブロックスコープを無視 ※varは基本的にスコープがくそすぎるので使用禁止
 // let ：変数名重複なし、ブロックスコープが有効 ES2015
 // const: 定数
 
-// ■配列
+// ■配列 
 const array = ['123', 'test']
 // 他の方法
 const ar = Array(10); // result : (10) [empty × 10] ※この場合、10を要素に持った長さ1の配列ではなく、要素が空の長さ10の配列が生成される
@@ -234,6 +234,39 @@ let refvalue = { x: 123, y: 456 };
 console.log(value); // 123 ※基本データ型の場合
 console.log(refvalue); // 999　※参照型
 
+// 可変長引数 Argumentsオブジェクト
+function test(){
+    console.log(`arguments.length : ${arguments.length}`); // 4
+    for (const iterator of arguments) {
+        console.log(iterator); 
+    }
+}
+test(1,2,3,4);// 1,2,3,4
+
+// 名前付き引数 関数呼び出し時に引数名を明記
+// メリット：呼び出し時に引数の順番を変えて呼び出せる（中間の引数だけに値を与えることも可能
+function show({name = '設定されていません', age = 0}){
+    console.log('名前　' + name);   // 名前　Lowell
+    console.log('年齢　' + age);    // 年齢　34
+}
+show({age : 34, name : 'Lowell'});
+
+// default arguments
+function defaultArgs(param = 10) {
+    console.log(param); 
+}
+defaultArgs() // 10
+defaultArgs(99) // 99
+// こんなこともできる
+function da(param = 5, nextParam = param){
+    console.log(param); 
+    console.log(nextParam);
+}
+
+da() // 5; 5;
+da(10) // 10;10;
+da(1,2) // 1; 2;
+
 //-------------まだあと
 // name?　みたいなやつ　オプショナルチェーン
 https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Optional_chaining
@@ -251,7 +284,10 @@ https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Optiona
 // }
 
 // この辺の組み込みオブジェクトは後で見とく 3章当たり
-// Array,Map,Set,Date,Math,RegExp,Object, P381から
+// Array,Map,Set,Date,Math,RegExp,Object,Promise
+
+
+
 
 
 
