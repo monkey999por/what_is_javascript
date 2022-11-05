@@ -290,12 +290,24 @@ const value1 = 'B'
 const value2 = 'C'  
 console.log(tagTemplateStr`A ${value1} ${value2} D`); // A BC D
 
-// 
+// クロージャ P217あたり　変数のスコープの話も書いてて勉強になる。
+function closure(arg) {
+    let val = arg;
+    return function () {
+        return ++val;
+    }
+}
+// returnしている無名関数が関数内に定義した変数valへの参照を維持している状態(変数valはclosureの中で保持されている)
+let myClorure = closure(0);
+console.log(myClorure()); // 1
+console.log(myClorure()); // 2
+console.log(myClorure()); // 3
+
 
 
 //-------------まだあと
 // name?　みたいなやつ　オプショナルチェーン
-https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+// https:developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Optional_chaining
 
 // 関数の引数は未指定の場合はundefinedが自動で渡される。エラーにはならない。
 // オーバーロード的なことはできない　：Identifier 'testa' has already been declared (at main.js:16:1)
@@ -316,6 +328,7 @@ https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Optiona
 // プロトタイプについてはもう少し詳しく書いておく。
 // new 演算子の動きはもうちょいちゃんと理解しとく。new可能なものは何か？とか。
 //論理演算氏の動きはちゃんと書いとくか
+// thisの扱い→これスニペットにしたい
 
 
 
