@@ -267,6 +267,32 @@ da() // 5; 5;
 da(10) // 10;10;
 da(1,2) // 1; 2;
 
+// 例えば引数の必須チェックをしたいときはこんなやり方もある
+class NoArgumentError extends Error { }
+
+function requireArg() {
+    throw new NoArgumentError('argument was not given');
+}
+function da(param = requireArg()) {
+    console.log(param);
+}
+da('test'); // test
+da(); // Uncaught Error: argument was not given
+    
+
+// タグ付きテンプレート文字列
+function tagTemplateStr(template, ...value) {
+    console.log(template); // ['A ', ' ', ' D']
+    return template[0] + value[0] + value[1] + template[2];
+}
+
+const value1 = 'B'
+const value2 = 'C'  
+console.log(tagTemplateStr`A ${value1} ${value2} D`); // A BC D
+
+// 
+
+
 //-------------まだあと
 // name?　みたいなやつ　オプショナルチェーン
 https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Optional_chaining
@@ -284,7 +310,12 @@ https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Optiona
 // }
 
 // この辺の組み込みオブジェクトは後で見とく 3章当たり
-// Array,Map,Set,Date,Math,RegExp,Object,Promise
+// Array,Map,Set,Date,Math,RegExp,Object,Promise、Proxy
+
+// P358 オブジェクトの内部仕様的なやつ　これはちゃんと書いておこう
+// プロトタイプについてはもう少し詳しく書いておく。
+// new 演算子の動きはもうちょいちゃんと理解しとく。new可能なものは何か？とか。
+//論理演算氏の動きはちゃんと書いとくか
 
 
 
