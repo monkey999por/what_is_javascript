@@ -118,6 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     let input_zone = document.getElementById('inputs');
     input_zone.addEventListener('mouseover', () => {
-        console.log(this); // Windowがとれる　windowってなに・・
+        // console.log(this); // Windowがとれる　windowってなに・・
     }, false);
 }, false);

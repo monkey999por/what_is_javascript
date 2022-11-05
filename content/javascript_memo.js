@@ -282,7 +282,7 @@ da(); // Uncaught Error: argument was not given
 
 // タグ付きテンプレート文字列
 function tagTemplateStr(template, ...value) {
-    console.log(template); // ['A ', ' ', ' D']
+    console.log(template); // ['A ', ' ', ' D'] // 配列で保持してるっぽい
     return template[0] + value[0] + value[1] + template[2];
 }
 
