@@ -11,6 +11,10 @@
 // var：変数名重複あり、ブロックスコープを無視 ※varは基本的にスコープがくそすぎるので使用禁止
 // let ：変数名重複なし、ブロックスコープが有効 ES2015
 // const: 定数
+let aVal = 'A';
+let bVal = 'B';
+let ab = {aVal,bVal};
+console.log(ab); // {aVal: 'A', bVal: 'B'}
 
 // ■配列 
 const array = ['123', 'test']
