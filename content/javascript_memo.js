@@ -13,7 +13,7 @@
 // const: 定数
 let aVal = 'A';
 let bVal = 'B';
-let ab = {aVal,bVal};
+let ab = { aVal, bVal };
 console.log(ab); // {aVal: 'A', bVal: 'B'}
 
 // ■配列 
@@ -103,16 +103,16 @@ for (const element of array1) {
 // "Error"
 // "final"
 try {
-	throw new Error('oops');
+    throw new Error('oops');
 } catch (e) {
-	if (e instanceof Error) {
-		console.log('Error');
-	} else {
-		console.log('not Error');
-		throw e
-	}
+    if (e instanceof Error) {
+        console.log('Error');
+    } else {
+        console.log('not Error');
+        throw e
+    }
 } finally {
-	console.log('final');
+    console.log('final');
 }
 
 // ■new : instanceを作成
@@ -162,7 +162,7 @@ const Obj = {
 // 余談：プロトタイプ(prototype)について
 // こんなことも可能:　プロトタイプのメソッドの書き換え。
 // https://developer.mozilla.org/ja/docs/Learn/JavaScript/Objects/Object_prototypes
-DClass.prototype.valueOf = function(){console.log('kakikae')}
+DClass.prototype.valueOf = function () { console.log('kakikae') }
 d1.valueOf() // kakikae
 d2.valueOf() // kakikae
 
@@ -239,37 +239,37 @@ console.log(value); // 123 ※基本データ型の場合
 console.log(refvalue); // 999　※参照型
 
 // 可変長引数 Argumentsオブジェクト
-function test(){
+function test() {
     console.log(`arguments.length : ${arguments.length}`); // 4
     for (const iterator of arguments) {
-        console.log(iterator); 
+        console.log(iterator);
     }
 }
-test(1,2,3,4);// 1,2,3,4
+test(1, 2, 3, 4);// 1,2,3,4
 
 // 名前付き引数 関数呼び出し時に引数名を明記
 // メリット：呼び出し時に引数の順番を変えて呼び出せる（中間の引数だけに値を与えることも可能
-function show({name = '設定されていません', age = 0}){
+function show({ name = '設定されていません', age = 0 }) {
     console.log('名前　' + name);   // 名前　Lowell
     console.log('年齢　' + age);    // 年齢　34
 }
-show({age : 34, name : 'Lowell'});
+show({ age: 34, name: 'Lowell' });
 
 // default arguments
 function defaultArgs(param = 10) {
-    console.log(param); 
+    console.log(param);
 }
 defaultArgs() // 10
 defaultArgs(99) // 99
 // こんなこともできる
-function da(param = 5, nextParam = param){
-    console.log(param); 
+function da(param = 5, nextParam = param) {
+    console.log(param);
     console.log(nextParam);
 }
 
 da() // 5; 5;
 da(10) // 10;10;
-da(1,2) // 1; 2;
+da(1, 2) // 1; 2;
 
 // 例えば引数の必須チェックをしたいときはこんなやり方もある
 class NoArgumentError extends Error { }
@@ -282,7 +282,19 @@ function da(param = requireArg()) {
 }
 da('test'); // test
 da(); // Uncaught Error: argument was not given
-    
+
+// 関数の引数は未指定の場合はundefinedが自動で渡される。エラーにはならない。
+// オーバーロード的なことはできないため、下の二つは同時に定義できない　：Identifier 'testa' has already been declared (at main.js:16:1)
+// function testa(p1) {
+//     console.log(p1);
+
+// }
+
+// function testa(p1,p2) {
+//     console.log(p1);
+//     console.log(p2);  
+// }
+
 
 // タグ付きテンプレート文字列
 function tagTemplateStr(template, ...value) {
@@ -291,7 +303,7 @@ function tagTemplateStr(template, ...value) {
 }
 
 const value1 = 'B'
-const value2 = 'C'  
+const value2 = 'C'
 console.log(tagTemplateStr`A ${value1} ${value2} D`); // A BC D
 
 // クロージャ P217あたり　変数のスコープの話も書いてて勉強になる。
@@ -307,32 +319,90 @@ console.log(myClorure()); // 1
 console.log(myClorure()); // 2
 console.log(myClorure()); // 3
 
+// その他
+// これとか面白い　カンマが演算子としてどう評価されるか
+// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Comma_Operator
 
 
-//-------------まだあと
 // name?　みたいなやつ　オプショナルチェーン
 // https:developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+let test = {
+    val: 1,
+    nv: null
+}
+// test?.val ?? 'default'　この書き方は多分よく使うので覚えとけ。スニペットに登録
+console.log(test?.val ?? 'default'); // 1
+console.log(test?.nv ?? 'default'); // default 
+console.log(test?.aaa ?? 'default'); // default
 
-// 関数の引数は未指定の場合はundefinedが自動で渡される。エラーにはならない。
-// オーバーロード的なことはできない　：Identifier 'testa' has already been declared (at main.js:16:1)
-// function testa(p1) {
-//     console.log(p1);
-    
-// }
+// Promise
+//　ちょっとよくわからんので後でちゃんと調べよう
+async function runMain(event) {
 
-// function testa(p1,p2) {
-//     console.log(p1);
-//     console.log(p2);  
-// }
+    // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Promise
+    console.log('start main thread');
 
-// この辺の組み込みオブジェクトは後で見とく 3章当たり
+    const myPromise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('foo');
+        }, 300);
+    });
+
+    myPromise.then(myResolve, myReject).catch(myCatch);
+
+    function myResolve(params) {
+        console.log('resolve');
+    }
+    function myReject(params) {
+        ;
+        console.log('reject');
+    }
+
+    function myCatch(params) {
+        console.log('cathc');
+    }
+
+    console.log('end main thread');
+}
+
+// この辺の組み込みオブジェクトは後で見とく
 // Array,Map,Set,Date,Math,RegExp,Object,Promise、Proxy
+// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects
 
-// P358 オブジェクトの内部仕様的なやつ　これはちゃんと書いておこう
-// プロトタイプについてはもう少し詳しく書いておく。
-// new 演算子の動きはもうちょいちゃんと理解しとく。new可能なものは何か？とか。
+
+// P358 オブジェクトの内部仕様的なやつのメモ
+//ブラウザオブジェクトの階層ってこんな感じ
+/**
+ * Windowオブジェクト(global object). property : parent, self, top, window(Windowオブジェクトへの参照)
+ * ├─document(Documentオブジェクト)
+ * │  ├─forms(Formオブジェクトの配列)
+ * │  ├─anchors(Ancorオブジェクトの配列)
+ * │  └─images(imageオブジェクトの配列)
+ * ├─console(Consoleオブジェクト)
+ * ├─localStrage/sessionStrage(Strageオブジェクト)
+ * ├─location(Locationオブジェクト)
+ * ├─history(Historyオブジェクト)
+ * ├─navigator(Navigatorオブジェクト)
+ * └─XMLHttpRequest/FileReader(Workerオブジェクト)
+ */
+// 実際に使うときは以下のようにする
+console.log('test');
+// これも意味は同じ(Windowオブジェクトの持つwindowプロパティ(Windowsオブジェクトへの参照を持つ)を介してアクセス）
+window.console.log('test');
+// Window.console.log('test'); // これはNG. Windowsオブジェクトの直接参照はできない
+
+/**
+ * new演算子について(ここみればだいたいわかる。要はclass or functionをもとにインスタンスを生成している)
+ * https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/new
+ */
+
+/**
+ * 'this'について（https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/this）
+ * 
+ * 
+ */
+
 //論理演算氏の動きはちゃんと書いとくか
-// thisの扱い→これスニペットにしたい
 
 
 
