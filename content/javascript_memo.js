@@ -396,11 +396,8 @@ window.console.log('test');
  * https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/new
  */
 
-/**
- * 'this'について（https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/this）
- * 
- * 
- */
+
+
 
 //論理演算氏の動きはちゃんと書いとくか
 
