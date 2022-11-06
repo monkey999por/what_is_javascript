@@ -20,6 +20,7 @@ function runMain(event) {
         // valueフィールドにアクセスsetterでvalueに直接アクセスできないため、setterでは_temp
         // に値をセットしている。そのため、getterでも_tempを返す。
         // ここでは分かりやすさのために名前を_tempとしているが、本来は_value（アンダースコア + アクセサ名）にすべき
+        // こういうこと　https://ginpen.com/2017/12/05/javascript-getter-setter/
         get value() {
             return `${this._temp} : call get`;
         }
@@ -128,9 +129,34 @@ function runMain(event) {
     console.log(instance.getPrivateField()); // 42
 
 
-    // イテレータ、ジェネレータ TODO
+    // イテレータの仕組み的な
+    // 例えばfor ofとかは内部的にこうなってる
+    const ary = [1, 2, 3];
+    const itr = ary[Symbol.iterator]();
+    let d;
+    while (d = itr.next()) {
+        if (d.done) break;
+        console.log(d.value); // 1,2,3
+    }
 
-    // Proxy TODO
+    // iteratebleなクラスを自作するなら　https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Iteration_protocols
+
+    // ジェネレータ
+    function* myGen() { // function「*」でジェネレータになる
+        let val = 'aaa';
+        yield val;// yield: myGenの呼び出しごとに処理を一時停止し、myGenが呼ばれると次のyieldまで実行される
+        val += ' add after'
+        yield val;
+        yield 'ccc';
+    }
+
+    console.log(myGen().next().value);// aaa
+    for (const iterator of myGen()) {
+        console.log(iterator);// "aaa","aaa add after","ccc"
+    }
+
+    // Proxy
+
 
 
 
