@@ -156,7 +156,22 @@ function runMain(event) {
     }
 
     // Proxy
+    const dataP = {
+        red:'赤色',
+        yellow: '黄色',
+    };
+    const proxy = new Proxy(dataP, {
+        get(target, prop){
+            console.log(target); // 対象のオブジェクト（=dataP）
+            console.log(prop); // 例：呼び出し側でproxy.redとした場合は、"red"
+            return prop in target ? target[prop] : '?';
+        },
+    });
+    console.log(proxy.red); // 赤色
+    console.log(proxy.aaa); // ?
 
+    proxy.blue = '青色';
+    console.log(proxy.blue); // 青色
 
 
 
