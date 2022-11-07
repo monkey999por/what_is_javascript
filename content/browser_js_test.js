@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // handleEventをもっているオブジェクトの場合、リスナにはそのオブジェクトを指定すればよい
     document.getElementById('handle_event').addEventListener('click', data, false);
+    document.getElementById('aaa').addeven
 
 })
 // TODO: thisの扱いについて記載する。
@@ -104,7 +105,6 @@ function addList() {
     // console.log(li);
     console.log(lia);
 }
-
 
 // 関数の定義方法でthisの意味が変わるから注意だよ
 document.addEventListener('DOMContentLoaded', () => {

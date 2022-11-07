@@ -55,7 +55,7 @@
 	  "description": "define arrow function"
 	},
 	"Strict mode": {
-	  "prefix": "usestrict",
+	  "prefix": "strict",
 	  "body": ["\"use strict\";"],
 	  "description": "strict mode"
 	},
@@ -209,7 +209,8 @@
 		"thisは定義する場所で意味が変わります。\n",
 		"定義場所: thisの参照先",
 		"トップレベル（関数の外）:global object",
-		"関数: global object(Strict modeの場合はundefined)",
+		"function(): 呼び出し場所でのthis (Strict modeの場合はundefined)",
+		"() => {this}: 定義場所でのthis",
 		"call/applyメソッド: 引数で指定したオブジェクト",
 		"event listener: イベントの発生元",
 		"constructor: 生成したinstance",

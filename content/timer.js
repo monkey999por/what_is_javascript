@@ -4,3 +4,4 @@ setInterval(() => {
     second ++;
     timer.innerText = second;
 }, 1000);
+

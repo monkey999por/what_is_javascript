@@ -44,6 +44,7 @@ console.log(obj.x); // 123    ※ドット構文
 console.log(obj['y']); // y   ※ブラケット構文
 
 // ■定数の注意点
+//参照自体は変えられない。
 const A = [1, 2, 3];
 //A = [] // NG
 A[1] = 123 // OK
@@ -154,14 +155,15 @@ const Obj = {
     x: 123,
     y: 456
 }
-// できない
+// できない コンストラクタがないため
 // const ob = new Obj();
-// これもダメっぽい？なんでだろう
+// これもダメ　コンストラクタがないため
 // const name = new Math(); // Math is not a constructor
 
 // 余談：プロトタイプ(prototype)について
 // こんなことも可能:　プロトタイプのメソッドの書き換え。
 // https://developer.mozilla.org/ja/docs/Learn/JavaScript/Objects/Object_prototypes
+// この場合はObjectクラスのvalueOfが書き変わってるはず
 DClass.prototype.valueOf = function () { console.log('kakikae') }
 d1.valueOf() // kakikae
 d2.valueOf() // kakikae
@@ -395,9 +397,6 @@ window.console.log('test');
  * new演算子について(ここみればだいたいわかる。要はclass or functionをもとにインスタンスを生成している)
  * https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/new
  */
-
-
-
 
 //論理演算氏の動きはちゃんと書いとくか
 

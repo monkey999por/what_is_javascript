@@ -195,6 +195,7 @@ function PrivateTest() {
 
 const pt = new PrivateTest();
 pt.base = 'value';
+// PrivateTestテスト内部でも_baseにアクセスするときはget,setが使われるためこうなる
 console.log(pt.base); // value :call set : call get
 console.log(pt.getString()); // value :call set STR
 
