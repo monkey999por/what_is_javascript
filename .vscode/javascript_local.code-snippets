@@ -1,18 +1,277 @@
 {
-	// Place your js_work workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
-	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
-	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
-	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
-	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
-	// Placeholders with the same ids are connected.
+	// Place your snippets for javascript here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
 	// Example:
-	// "Print to console": {
-	// 	"scope": "javascript,typescript",
-	// 	"prefix": "log",
-	// 	"body": [
-	// 		"console.log('$1');",
-	// 		"$2"
-	// 	],
-	// 	"description": "Log output to console"
-	// }
-}
+	// $0: 最終カーソル位置
+	// $1: 最初のカーソル位置
+	// $2: 次のタブストップ
+	// $3: 次のタブストップ
+	// , : 改行
+	// 定義済み変数とかが使えるけど、今のとこ使う予定にない
+	// 複数の値を指定するときは配列で指定。prefixの場合はキーになる候補が増えて、body,descriptionの場合は改行になる
+	// ${1|one,two,three|}と書くと、選択式にできたりする。
+	// 同じタブストップの番号にすればマルチカーソルで編集される。
+	// https://www.memory-lovers.blog/entry/2021/10/05/163000
+	// https://code.visualstudio.com/docs/editor/userdefinedsnippets
+	"console.log();": {
+	  "prefix": "log",
+	  "body": ["console.log($1);"],
+	  "description": "Log output to console"
+	},
+	"console.info();": {
+	  "prefix": ["log", "info"],
+	  "body": ["console.info($1);"],
+	  "description": "Log output to console"
+	},
+	"console.warn();": {
+	  "prefix": ["log", "warn"],
+	  "body": ["console.warn($1);"],
+	  "description": "Log output to console"
+	},
+	"console.error();": {
+	  "prefix": ["log", "error"],
+	  "body": ["console.error($1);"],
+	  "description": "Log output to console"
+	},
+	"console.group();": {
+	  "prefix": ["log", "group"],
+	  "body": [
+		"console.group(${1:label});",
+		"console.log($2);",
+		"console.groupEnd();"
+	  ],
+	  "description": "grouping log"
+	},
+	"log to function call stack": {
+	  "prefix": ["log", "call", "trace"],
+	  "body": ["console.trace();"],
+	  "description": "grouping log"
+	},
+	"const f = (args) => {};": {
+	  "prefix": "arrow",
+	  "body": ["const ${1:name} = (${2:args}) => {", "\t$3", "};"],
+	  "description": "define arrow function"
+	},
+	"Strict mode": {
+	  "prefix": "usestrict",
+	  "body": ["\"use strict\";"],
+	  "description": "strict mode"
+	},
+	"if else": {
+	  "prefix": "ifelse",
+	  "body": ["if ($1) {", "\t$2", "} else if () {", "\t", "} else {", "\t", "}"]
+	},
+	"switch": {
+	  "prefix": "switch",
+	  "body": [
+		"switch (${1:expression}) {",
+		"\tcase ${2:match} : ",
+		"\t",
+		"\t\tbreak;",
+		"\tdefault : ",
+		"\t\tbreak;",
+		"}"
+	  ]
+	},
+	"while": {
+	  "prefix": "while",
+	  "body": ["while(${1:condition}){", "\t$2", "}"]
+	},
+	"do while": {
+	  "prefix": "dowhile",
+	  "body": ["do {", "\t$2", "} while (${1:condition})"]
+	},
+	"for (let i = n;n<x; n++)": {
+	  "prefix": "for",
+	  "body": ["for (let i = ${1:n} ; i < ${2:max}; i++){", "\t$3", "};"],
+	  "description": [
+		"for loop with temporary variable\n",
+		"※余談：一時変数がconstだとうまく動かない"
+	  ]
+	},
+	"for( key in object)": {
+	  "prefix": "forin",
+	  "body": ["for ( const ${1:key} in ${2:object}){", "\t$3", "};"],
+	  "description": [
+		"loop with object key",
+		"※オブジェクトのキーを列挙するときに使う。主にはデバッグ用らしい",
+		"※要素の順番を保証しない",
+		"※配列の列挙には使用しないこと。",
+		"usage: ",
+		"const object = { a: 1, b: 2 };\n",
+		"for (const property in object) {",
+		"\tconsole.log(`${property}: ${object[property]}`);",
+		"}\n",
+		"// a: 1",
+		"// b: 2",
+		"// c: 3"
+	  ]
+	},
+	"for (value of iterableObject)": {
+	  "prefix": ["forof", "foreach"],
+	  "body": ["for (const ${1:key} of ${2:iterableObject}){", "\t$3", "};"],
+	  "description": [
+		"loop for iterable object",
+		"usage: ",
+		"const array1 = ['a', 'b', 'c'];",
+  
+		"for (const element of array1) {",
+		"console.log(element);",
+		"}\n",
+		"// expected output: \"a\"",
+		"// expected output: \"b\"",
+		"// expected output: \"c\""
+	  ]
+	},
+	"try...catch": {
+	  "prefix": "try",
+	  "body": ["try {", "\t$1", "} catch (e) {", "\t", "} finally {", "\t", "}"],
+	  "description": [
+		"usage: ",
+		"try {",
+		"\tthrow new Error('oops');",
+		"} catch (e) {",
+		"\tif (e instanceof Error) {",
+		"\t\tconsole.log('Error');",
+		"\t} else {",
+		"\t\tconsole.log('not Error');",
+		"\t\tthrow e",
+		"\t}",
+		"} finally {",
+		"\tconsole.log('final');",
+		"}\n",
+  
+		"// result: ",
+		"// Error",
+		"// final"
+	  ]
+	},
+	"const name = new Type(args);": {
+	  "prefix": "new",
+	  "body": ["const ${1:name} = new ${2:Type}(${3:args});"],
+	  "description": "create new instance"
+	},
+	// --------------便利系---------
+	"const s = Symbole('description')": {
+	  "prefix": "symbol",
+	  "body": ["const ${1:name} = Symbol(${2:description});"],
+	  "description": [
+		"自分自身とのみ等しくなる。別々のSymbolで同じdescriptionを指定しても、別物とみなされる\n",
+		"例：",
+		"let Sym1 = Symbol(\"Sym\")",
+		"let Sym2 = Symbol(\"Sym\")",
+		"console.log(Sym1 === Sym2) // false",
+		"console.log(Sym1 === Sym1); // true"
+	  ]
+	},
+	"regexp literal : /regexp/option;": {
+	  "prefix": "regexp",
+	  "body": [
+		"const re = /${2:regexp}/${1|g,i,m,u,y,s,d|}",
+		"${3|'str'.match(re);,re.test('str');|}"
+	  ],
+	  "description": [
+		"RegExp literal (= new RegExp(regexp, option);)",
+		"options: \n",
+		"g:global : 2番目、3番目... にマッチする部分も検索",
+		"i:ignoreCase : 大文字・小文字を区別しない",
+		"m:multiline : 複数行に対して検索",
+		"u:unicode : Unicodeのサロゲーションペア文字も1文字として扱う",
+		"y:sticky : lastIndex で指定した位置からのみ検索する",
+		"s:dotAll : ピリオド(.)が CR, LF, U+2028, U+2029 を含め、すべての文字にマッチする (ES2018)",
+		"d:hasIndices : マッチ文字列の先頭・終了インデックスを返却する (ES2022)"
+	  ]
+	},
+	"closure function sample": {
+	  "prefix": "closure",
+	  "body": [
+		"function ${1:closure}(${2:arg}) {",
+		"\tlet val = ${2:arg};",
+		"\treturn function () {",
+		"\t\treturn ++val;",
+		"\t}",
+		"}"
+	  ],
+	  "description": [
+		"usage: \n",
+		"// returnしている無名関数が関数内に定義した変数valへの参照を維持している状態(変数valはclosureの中で保持されている)",
+		"let myClorure = closure(0)",
+		"console.log(myClorure()); // 1",
+		"console.log(myClorure()); // 2"
+	  ]
+	},
+	"['this']'s description": {
+	  "prefix": "this",
+	  "body": ["this"],
+	  "description": [
+		"thisは定義する場所で意味が変わります。\n",
+		"定義場所: thisの参照先",
+		"トップレベル（関数の外）:global object",
+		"関数: global object(Strict modeの場合はundefined)",
+		"call/applyメソッド: 引数で指定したオブジェクト",
+		"event listener: イベントの発生元",
+		"constructor: 生成したinstance",
+		"method: 呼び出し元のオブジェクト"
+	  ]
+	},
+	"var|let|const": {
+	  "prefix": "var",
+	  "body": ["${1|let,const,var|}"]
+	},
+	"defined class": {
+	  "prefix": "class",
+	  "body": [
+		"class ${1:Classname} {",
+		"\tconstructor(${2:field}) {",
+		"\t\tthis.${2:field} = ${2:field};",
+		"\t}",
+		"\t${3:someMethod}() {",
+		"\t\treturn this.${2:field};",
+		"\t}$0",
+		"}"
+	  ],
+	  "description": [
+		"usege: \n",
+		"let m = new Classname('aaa');",
+		"m.someMethod();"
+	  ]
+	},
+	"define array": {
+	  "prefix": "array",
+	  "body": "const ${1:name} = [${2:val1}, ${3:val2}];"
+	},
+	"define object": {
+	  "prefix": "obj",
+	  "body": [
+		"const ${1:name} = {",
+		"\t${2:key}:${3:'val'},",
+		"\tkey: 'val',",
+		"};"
+	  ]
+	},
+	"Optional chaining": {
+	  "prefix": "?",
+	  "body": ["${1:obj}?.${2:key} ?? '${3:default}'"],
+	  "description": [
+		"Null 合体演算子はオプショナルチェーンの後につけることで、",
+		"値が存在しなかったときの既定値を指定することができます。\nusage:\n",
+		"let customer = {",
+		"\tname: 'Carl',",
+		"\tdetails: { age: 82 }",
+		"};",
+		"const customerCity = customer?.city ?? 'Unknown city';",
+		"console.log(customerCity); // Unknown city"
+	  ]
+	},
+	"define 'sleep()' in async function": {
+	  "prefix": "sleep",
+	  "body": ["//sleep ${1:ms} ms","await ((ms) => new Promise((resolve) => setTimeout(resolve, ms)))(${1:ms});"],
+	  "description": ["usage: \n", "async function af() { // use sleep }"]
+	}
+  }
+  
+  // memo
+  // jsdocとかも欲しいけど、jsdocを使わない場合は無効にしたい
+  
