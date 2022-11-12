@@ -4,7 +4,6 @@ async function runMain(event) {
     f1() {
       console.log("f1 run");
     },
-
   };
   const handler1 = {
     get: (target, property) => {
@@ -23,8 +22,7 @@ async function runMain(event) {
   // value
   console.log(proxy1.v1); // 1. "v1 val" 2. "proxy v1"
   proxyFunc(); // 1. "apply" 2. "f1 run"
-  // これはできない。なぜならproxy1はtargetオブジェクトに対してのものであり、target.f1関数にはプロキシとして機能しない
-//   proxy.f1(); error
-
-
+  // これはできない。なぜならproxy1はtargetオブジェクトに対してのものであり、
+  // target.f1関数にはプロキシとして機能しない
+  //   proxy.f1(); error
 }
