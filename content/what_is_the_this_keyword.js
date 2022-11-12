@@ -1,3 +1,7 @@
+
+
+//いろいろ書いたけど、全部覚えるのは無理なので、実行時にthisがどうなってるか逐一確認すればいいと思う
+
 /**
  * 'this'について（https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/this）
  * javascriptのthisはコンテキストによって意味が異なるので

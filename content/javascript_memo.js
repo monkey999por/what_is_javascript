@@ -37,6 +37,14 @@ const obj = {
     y: 'test',
     z: {
         test: 'dummy'
+    },
+    // ES2015からこういう書き方もできる。
+    func1(){
+        console.log('func1');
+    },
+    // 以前の書き方
+    oldfunc1 : () => {
+        console.log('old func');
     }
 }
 console.log(typeof obj); //object

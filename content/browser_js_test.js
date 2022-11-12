@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('aaa').addeven
 
 })
-// TODO: thisの扱いについて記載する。
 // event babbling test
 document.addEventListener('DOMContentLoaded', () => {
     const outer = document.getElementById('event_babbling_outer');

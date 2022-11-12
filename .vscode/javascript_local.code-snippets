@@ -51,7 +51,7 @@
 	},
 	"const f = (args) => {};": {
 	  "prefix": "arrow",
-	  "body": ["const ${1:name} = (${2:args}) => {", "\t$3", "};"],
+	  "body": ["(${1:args}) => {", "\t$2", "};"],
 	  "description": "define arrow function"
 	},
 	"Strict mode": {
