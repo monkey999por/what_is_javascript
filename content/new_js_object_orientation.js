@@ -1,12 +1,13 @@
 /**
  * ## ES2015以降のclassとかオブジェクトリテラルとかの記法
+ * ※今のとこ雑にしかまとめてないですがどんどん整理していきます。
  * 概要
  * > classは内部的にはfunction()のシンタクスシュガー
  * > javascript本来のprototypeベースのオブジェクト指向を疑似的にclassで内包しているだけ
  * > ※ただしfunctionと違いclassは定義前には呼び出せない（要するにnew演算子はclass定義より後にしか使えない）
  */
 /**
- * ### クラスの全体像
+ * ### クラス(class), アクセサ(get,set)
  */
 class Member {
   // constructor
@@ -48,8 +49,8 @@ let m = new Member("aaa");
 // 1. 「new Member('aaa');」⇒これの中に定義してる「this.value = value」が
 //     setter(set value)を呼ぶ
 // 2. 「m.value」がgetter(get value)を呼ぶため
-console.log(m.value); //結果 "aaa : call set : call get"
-console.log(m.someMethod()); //結果 "aaa : call set : call get"
+console.log(m.value); //"aaa : call set : call get"
+console.log(m.someMethod()); // "aaa : call set : call get"
 Member.staticMethod(); // "this is static method"
 
 /**
@@ -60,7 +61,7 @@ const Test = class {
 };
 
 /**
- * ## 継承
+ * ## 継承(extends)
  */
 class Animal {
   constructor(value) {
@@ -93,20 +94,22 @@ console.log(cat.getValue()); // "あにまる override by cat : ねーこ : あ�
 console.log(cat.getAnimalValue()); // "あにまる URYYYY"
 
 /**
- * ### オブジェクトリテラル
+ * ### オブジェクトリテラル(object literal)
  */
 let objC = {
   firstName: "takashi",
   lastName: "honda",
   toString() {
-    return `${this.name} : toString`;
+    return `${this.firstName} : toString`;
   },
   oldFunc: () => {console.log('古い書き方');}
 };
 console.log(objC.toString()); // "takashi : toString"
-objC.oldFunc(); // 
+objC.oldFunc(); // "古い書き方"
 
-//プロパティの動的生成
+/**
+ * プロパティの動的生成
+ */
 let i = 0;
 let dynamicVars = {
   name: "test",
@@ -117,12 +120,18 @@ let dynamicVars = {
 console.log(dynamicVars.a1); // memo1
 console.log(dynamicVars.a2); // memo2
 
-// モジュール(export/import)についてはこれ見とけ
-// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/export
+/**
+ * ### モジュール(export/import)について
+ * いろいろ書くよりこれ見るのが一番
+ * https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/export
+ */
 
-// private
-// https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Classes/Private_class_fields
+/**
+ * ### プライベート変数 (Private class fields)
+ * https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Classes/Private_class_fields
+ */
 class ClassWithPrivateField {
+  // private field
   #privateField;
 
   constructor() {
@@ -138,8 +147,11 @@ class ClassWithPrivateField {
 const instance = new ClassWithPrivateField();
 console.log(instance.getPrivateField()); // 42
 
-// イテレータの仕組み的な
-// 例えばfor ofとかは内部的にこうなってる
+/**
+ * ### イテレータ(Iterator)
+ * 例えばfor ofとかは内部的にこの仕組みを使ってる
+ * 
+ */
 const ary = [1, 2, 3];
 const itr = ary[Symbol.iterator]();
 let d;
@@ -147,10 +159,14 @@ while ((d = itr.next())) {
   if (d.done) break;
   console.log(d.value); // 1,2,3
 }
+/**
+ *もしiteratbleなクラスを自作したいならこういうのが参考になる
+ * https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Iteration_protocols
+ */
 
-// iteratebleなクラスを自作するなら　https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Iteration_protocols
-
-// ジェネレータ
+/**
+ * ### ジェネレータ(Generator), yieldキーワード
+ */
 function* myGen() {
   // function「*」でジェネレータになる
   let val = "aaa";
@@ -165,23 +181,23 @@ for (const iterator of myGen()) {
   console.log(iterator); // "aaa","aaa add after","ccc"
 }
 
-// Proxy
+// ### プロキシ（Proxy）
 const dataP = {
   red: "赤色",
   yellow: "黄色",
 };
 const proxy = new Proxy(dataP, {
   get(target, prop) {
-    console.log(target); // 対象のオブジェクト（=dataP）
+    console.log(target); // 対象のオブジェクト（=dataP） 例：{red: '赤色', yellow: '黄色'}
     console.log(prop); // 例：呼び出し側でproxy.redとした場合は、"red"
     return prop in target ? target[prop] : "?";
   },
 });
-console.log(proxy.red); // 赤色
-console.log(proxy.aaa); // ?
+console.log(proxy.red); // "赤色"
+console.log(proxy.aaa); // "?"
 
 proxy.blue = "青色";
-console.log(proxy.blue); // 青色
+console.log(proxy.blue); // "青色"
 
 /**
  * ### 参考
