@@ -1,11 +1,12 @@
 /**
- * ## ES2015以降のclassとかオブジェクトリテラルとかの記法
+ * ## ES2015以降のclassやオブジェクトリテラルの記法
  * ※今のとこ雑にしかまとめてないですがどんどん整理していきます。
  * 概要
- * > classは内部的にはfunction()のシンタクスシュガー
+ * > `class`は内部的には`function()`のシンタクスシュガー
  * > javascript本来のprototypeベースのオブジェクト指向を疑似的にclassで内包しているだけ
- * > ※ただしfunctionと違いclassは定義前には呼び出せない（要するにnew演算子はclass定義より後にしか使えない）
+ * > ※ただし`function`と違い`class`は定義前には呼び出せない（要するに`new`演算子はclass定義より後にしか使えない）
  */
+
 /**
  * ### クラス(class), アクセサ(get,set)
  */
@@ -18,9 +19,9 @@ class Member {
 
   // get accesser
   // _temp：内部的にのみ持つ一時的な変数。
-  // valueフィールドにアクセスsetterでvalueに直接アクセスできないため、
+  // valueにsetterで直接アクセスできないため、
   // setterでは_tempに値をセットしている。そのため、getterでも_tempを返す。
-  // ここでは分かりやすさのために名前を_tempとしているが、本来は_value（アンダースコア + アクセサ名）にすべき
+  // 一時変数名がなんでもよいことを明示的にするために名前を_tempとしているが、本来は_value（アンダースコア + アクセサ名）にすべき
   // こういうこと　https://ginpen.com/2017/12/05/javascript-getter-setter/
   get value() {
     return `${this._temp} : call get`;
@@ -46,9 +47,9 @@ class Member {
 }
 let m = new Member("aaa");
 // ※以下のような結果になる理由
-// 1. 「new Member('aaa');」⇒これの中に定義してる「this.value = value」が
+// 1. new Member('aaa'); ⇒これの中に定義してるthis.value = valueが
 //     setter(set value)を呼ぶ
-// 2. 「m.value」がgetter(get value)を呼ぶため
+// 2. m.valueがgetter(get value)を呼ぶため
 console.log(m.value); //"aaa : call set : call get"
 console.log(m.someMethod()); // "aaa : call set : call get"
 Member.staticMethod(); // "this is static method"
@@ -61,7 +62,7 @@ const Test = class {
 };
 
 /**
- * ## 継承(extends)
+ * ### 継承(extends)
  */
 class Animal {
   constructor(value) {
@@ -108,7 +109,7 @@ console.log(objC.toString()); // "takashi : toString"
 objC.oldFunc(); // "古い書き方"
 
 /**
- * プロパティの動的生成
+ * ### プロパティの動的生成
  */
 let i = 0;
 let dynamicVars = {
@@ -149,7 +150,7 @@ console.log(instance.getPrivateField()); // 42
 
 /**
  * ### イテレータ(Iterator)
- * 例えばfor ofとかは内部的にこの仕組みを使ってる
+ * 例えば`for of`とかは内部的にこの仕組みを使ってる
  * 
  */
 const ary = [1, 2, 3];
