@@ -1,5 +1,5 @@
 module.exports = {
-  files: ["./MDN/**", "./content/**", "./ts/**"], //監視するファイルを指定
+  files: ["./MDN/**", "./js/**", "./ts/**"], //監視するファイルを指定
   server: {
     //デフォルトで開くファイルを指定
     baseDir: "./MDN/Asynchronous", //ファイルまでのディレクトリのパス
