@@ -1,0 +1,11 @@
+{
+  "include": ["ts/**/*.ts"], // TypeScriptファイルの場所
+  "compilerOptions": {
+    "target": "ES2016",
+    "module": "commonjs",
+    "lib": ["ES2016", "dom"],
+    "alwaysStrict": true,
+    "experimentalDecorators": true,
+    "outDir": "js" // JavaScriptファイルの出力先
+  }
+}
