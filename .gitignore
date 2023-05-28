@@ -1,3 +1,4 @@
 node_modules/ 
 .next/ 
-ts/*.js
+ts/**/*.js
+js/ts_out/**/*.js
