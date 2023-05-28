@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "ES2016",
+    "module": "commonjs",
+    "lib": ["ES2016", "dom"],
+    "alwaysStrict": true,
+    "experimentalDecorators": true
+  }
+}
