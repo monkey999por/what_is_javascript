@@ -4,25 +4,31 @@ javascript, typescriptのあれこれ
 
 ## javascript
 
+- [MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript)
+
 ## typescript
 
 - 基本的にはここから見るのがよさげ  
-<https://www.typescriptlang.org/docs/handbook/intro.html>
+[公式](https://www.typescriptlang.org/docs/handbook/intro.html)
 
-- 汎用型　typescriptが提供するいろんな型。かっこいい
-<https://www.typescriptlang.org/docs/handbook/utility-types.html>
+- 汎用型　typescriptが提供するいろんな型。かっこいい  
+[汎用型](https://www.typescriptlang.org/docs/handbook/utility-types.html)
 
-YY Typescreipt  
-<https://typescriptbook.jp/overview>
+- [YY Typescreipt](https://typescriptbook.jp/overview)
 
-### build & deploy  
+## description
 
-ファイルの変更を監視してサーバに自動デプロイする  
-自動: `auto_deploy_run.bat`
+`gulp`(タスクランナー)で`browser-sync`と`tsc`を動かしてる。  
 
-もしくは  
+- javascriptの場合  
+js/配下に適当にファイルを作って、js/main.htmlから読み込む  
+- typescriptの場合  
+ts/ディレクトリでts書いて、それをjs/ts_out/に出力している
+js/main.htmlからはjs_ts_outのjsファイルを読みこむ
+
+## build & deploy  
 
 ```
-npm install
-npm run server
+npm ci
+npm run gulp
 ```

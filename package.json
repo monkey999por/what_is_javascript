@@ -1,6 +1,9 @@
 {
   "scripts": {
-    "server": "browser-sync start --config bs-config.js"
+    "gulp": "gulp default",
+    "compile": "gulp compile",
+    "test": "jest",
+    "server": "gulp serve"
   },
   "devDependencies": {
     "@types/jest": "^29.5.1",
