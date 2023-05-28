@@ -6,6 +6,6 @@
     "lib": ["ES2016", "dom"],
     "alwaysStrict": true,
     "experimentalDecorators": true,
-    "outDir": "js" // JavaScriptファイルの出力先
+    "outDir": "js/ts_out" // JavaScriptファイルの出力先
   }
 }

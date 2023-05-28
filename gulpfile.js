@@ -7,7 +7,10 @@ const tsProject = ts.createProject("tsconfig.json");
 
 // TypeScriptファイルのトランスパイル
 gulp.task("compile", function () {
-  return tsProject.src().pipe(tsProject()).js.pipe(gulp.dest("dist"));
+  return tsProject
+    .src("ts/**.ts")
+    .pipe(tsProject())
+    .js.pipe(gulp.dest("js/ts_out"));
 });
 
 // ブラウザのリロード
