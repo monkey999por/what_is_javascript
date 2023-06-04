@@ -32,3 +32,9 @@ js/main.htmlからはjs_ts_outのjsファイルを読みこむ
 npm ci
 npm run gulp
 ```
+
+`.ts`をnode.jsで確認する場合はの実行はこれでもいい
+
+```
+npx ts-node {file.ts}
+```
