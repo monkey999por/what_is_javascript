@@ -1,14 +1,26 @@
+// https://tech.mobilefactory.jp/entry/2021/12/02/000000
+type Detail<T> = T extends object
+  ? T extends infer O
+    ? { [K in keyof O]: Detail<O[K]> }
+    : never
+  : T;
+
+//www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#file-watching-now-uses-file-system-events
+
 /**
  * Generics
+ *
  */
-function loggingIdentity<Type>(arg: Array<Type>): Array<Type> {
-  console.log(arg.length); // Array has a .length, so no more error
-  return arg;
-}
+const A = <T>(param: T) => {
+  return;
+};
 
 /**
  * keyof
+ * 演算子keyofはオブジェクト タイプを受け取り、そのキーの文字列または数値リテラル結合を生成します。
  */
+type B = { name: string; id: number };
+type C = Detail<keyof B>; // "name" | "number";
 
 /*
 ■Tipes
@@ -71,14 +83,4 @@ leteral type
 
 */
 
-// https://tech.mobilefactory.jp/entry/2021/12/02/000000
-type A = {
-  name: string;
-};
-
-type B = {
-  id: number;
-};
-type C = Required<A & B>;
-
-function cFun(params: C): void {}
+//
