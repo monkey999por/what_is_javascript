@@ -17,7 +17,9 @@
         <button onclick="runMain()">run main.js(いろいろ書き換えてるやつ）</button>
     </div>
     <div id="inputs" class="input_zone">
-        <input type="text" id="in">
+        <input type="text" id="in" onchange="(e) => {changeTextInput(e)}">
+        <input type="number" onchange="(e) => {changeNumberInput(e)}">
+        <input type=" text" inputmode="numeric" id="in">
         <button id="addbutton">RUN</button>
     </div>
     <div>
@@ -76,7 +78,7 @@
     <!-- <script type="text/javascript" src="./timer.js"></script> -->
     <!-- <script type="text/javascript" src="./ajax_sample.js"></script> -->
     <script type="text/javascript" src="./main.js"></script>
-    <!-- <script type="text/javascript" src="./browser_js_test.js"></script> -->
+    <script type="text/javascript" src="./browser_js_test.js"></script>
     <!-- <script type="text/javascript" src="./old_js_object_orientation.js"></script> -->
     <script type="text/javascript" src="./new_js_object_orientation.js"></script>
     <!-- <script type="text/javascript" src="./what_is_the_this_keyword.js"></script> -->

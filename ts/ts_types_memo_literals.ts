@@ -1,3 +1,4 @@
+import { Simple } from "./ts_types_memo_practice";
 // 目次
 // ■1.基本的な書き方 namespace Basic
 // ■2.応用的な書き方 namespace Advance
@@ -21,6 +22,7 @@ namespace Basic {
   /**
    * typeof {変数}
    * 出力: 型リテラル文字列
+   * ※objectの場合は"object"となるが、内部的には"object"構造を持っていそう？だからkeyof typeof objでキーが取り出せる？
    *
    */
   const valA: Simple<A & B> = { objkey: "", typekey: "test" };
@@ -41,6 +43,15 @@ namespace Basic {
    */
   type D = Simple<B & A>;
   type ConditionalTypes = D extends A ? string : number; // string
+  /**
+   * infer
+   */
+  function inferFunc(params: A) {}
+  type Ret = ReturnType<typeof inferFunc>;
+
+  type Id<T> = T extends { id: infer R } ? R : never;
+  type hasID = Id<{ id: string }>; // string
+  type noID = Id<{ name: string }>; // never
 
   /**
    * in
@@ -159,10 +170,25 @@ namespace Advance {
     name: "たかし",
     age: 123,
   };
+
+  const keyofTypeofObjLiteral = {
+    name: "たかし",
+    age: 123,
+  } as const;
   // "name" | "age"
   type KeyOfTypeOfType = keyof typeof keyofTypeofObj;
   // string | number
   type KeyOfTypeOfValueType = (typeof keyofTypeofObj)[KeyOfTypeOfType];
+  // "たかし" | 123
+  type KeyOfTypeOfLiteralType = (typeof keyofTypeofObj)[KeyOfTypeOfType];
+
+  // ★配列は本質的にindexとlengthを持ったオブジェクト型担ってる。詳細はArray<T>の定義を参照
+  const arrayTypeOf = ["aaa", "bbb", "ccc"] as const;
+  // Unionにしてみる
+  type LiteralArrayToUnion<T> = T extends { [P in keyof T]: infer P }
+    ? P
+    : never;
+  type LiteralArrayToUnionResult = LiteralArrayToUnion<typeof arrayTypeOf>;
 
   /**
    * as const
@@ -176,18 +202,3 @@ namespace Advance {
   const asConstObj = { text: "Hello", number: 10 } as const;
   // asConstObj.text = "f"; // error
 }
-
-/*
-■Tipes
-
-infer
-
-
-
-
-
-
-
-*/
-
-//
