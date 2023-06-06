@@ -1,12 +1,24 @@
-// https://tech.mobilefactory.jp/entry/2021/12/02/000000
-// 型をごちゃごちゃ定義した後に、最終的に出力される型は何なのかを教えてくれる
-type Simple<T> = T extends object
+/**
+ * https://tech.mobilefactory.jp/entry/2021/12/02/000000
+ * 型をごちゃごちゃ定義した後に、最終的に出力される型は何なのかを教えてくれる
+ */
+export type Simple<T> = T extends object
   ? T extends infer O
     ? { [K in keyof O]: Simple<O[K]> }
     : never
   : T;
 
-type DeepPartial<T> = { [P in keyof Partial<T>]: DeepPartial<T[P]> };
+/**
+ * 深いネストのオブジェクトの項目すべてOptionalにする
+ */
+export type DeepPartial<T> = { [P in keyof Partial<T>]: DeepPartial<T[P]> };
+
+/**
+ * 深いネストのオブジェクトの項目すべてRequiredにする
+ */
+export type DeepRequired<T> = { [P in keyof Required<T>]: DeepRequired<T[P]> };
+
+// ----test
 
 const testaabbbbb = {
   name: "111",
@@ -29,20 +41,6 @@ const bnb: Simple<DeepPartial<typeof testaabbbbb>> = {
 
 console.log(testaabbbbb);
 
-//   まず、マップドタイプとは、他の型から新しい型を生成する強力な機能です。そして、テンプレートリテラル型は、テンプレートリテラルの構文を利用して文字列型を組み合わせる機能です。
-
-// これらを組み合わせた一例を以下に示します：
-
-// typescript
-// Copy code
-type EventTypes = "click" | "mouseover";
-
-type EventMap = {
-  [K in EventTypes as `${K}Handler`]: (event: K) => void;
-};
-
-// 上記の型は以下と同じ意味になります。
-// type EquivalentEventMap = {
-//     clickHandler: (event: 'click') => void;
-//     mouseoverHandler: (event: 'mouseover') => void;
-// };
+export const QUERY_KEYS = ["users", "post", "comments"] as const;
+export type Unpacked<T> = T extends { [K in keyof T]: infer U } ? U : never;
+export type QueryKeysTypes = Unpacked<typeof QUERY_KEYS>;

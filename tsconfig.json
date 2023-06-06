@@ -8,5 +8,6 @@
     "experimentalDecorators": true,
     "outDir": "js/ts_out", // JavaScriptファイルの出力先
     "noErrorTruncation": true
+    // "strictNullChecks": true
   }
 }
